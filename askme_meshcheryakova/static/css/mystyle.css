@@ -1,0 +1,379 @@
+.answer {
+  transform: scale(0.8); /* Уменьшение размера до 70% */
+  background-color: #ffffff !important;
+  border: none !important;
+}
+
+.link-container {
+  display: flex; /* Располагаем ссылки в строку */
+  gap: 15px; /* Промежуток между ссылками */
+}
+
+.log-link {
+  display: flex; /* Позволяет располагать содержимое горизонтально */
+  align-items: center; /* Центрирует элементы по вертикали */
+  text-decoration: none; /* Убираем подчеркивание */
+  color: inherit; /* Унаследовать цвет текста */
+  transition: filter 0.3s; /* Плавный переход для эффекта наведения */
+}
+
+.log-link img {
+  margin-right: 8px; /* Промежуток между изображением и текстом */
+}
+
+.log-link:hover {
+  color: #8a8a8a;
+}
+
+.myform-container {
+  display: flex; /* Используем Flexbox */
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center !important;
+}
+
+.was-validated-log {
+  width: 300px; /* Ширина формы */
+}
+
+.button-container {
+  display: flex; /* Используем Flexbox */
+  justify-content: center; /* Центрирование по горизонтали */
+  margin-top: 20px; /* Отступ сверху */
+}
+
+.login-container {
+  height: 60vh;
+  align-items: center !important;
+}
+
+.signup-container {
+  height: 100vh;
+}
+
+.form-check-input:checked {
+  border: none;
+  background-color: #3dcf47ce;
+  box-shadow: none !important;
+}
+.form-check-input {
+  border-color: #7e7e7e !important;
+  box-shadow: none !important;
+}
+.form-check {
+  border-color: #7e7e7e;
+  box-shadow: none !important;
+}
+.form-control {
+  box-shadow: none !important;
+  width: 100%; /* Устанавливает ширину на 100% */
+  background-color: #dce1e6 !important;
+}
+.question-style {
+  border: none !important;
+  background-color: #fff !important;
+}
+.mystyle-button {
+  display: flex;
+  justify-content: center; /* Центрирует по горизонтали */
+}
+.main-link {
+  color: #ff5e00; /* Задаем цвет ссылок */
+  text-decoration: none; /* Убираем подчеркивание */
+  font-size: 20px;
+}
+.main-link:hover {
+  color: #ff5e0088; /* Задаем цвет ссылок */
+  text-decoration: none; /* Убираем подчеркивание */
+}
+
+.member-list a {
+  color: #0078AB; /* Задаем цвет ссылок */
+  text-decoration: none; /* Убираем подчеркивание */
+}
+
+.member-list a:hover {
+  color: #0078ab7c;
+}
+
+
+
+.avatar-container {
+  height: 100px; /* Высота контейнера */
+  overflow: hidden;
+  border-radius: 5px; /* Скругление углов */
+  display: flex; /* Используем Flexbox */
+  align-items: center; /* Вертикальное выравнивание по центру */
+  justify-content: center; /* Горизонтальное выравнивание по центру */
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Обрезка изображения */
+}
+
+.member-list {
+  text-align: center; /* Центрирование текста */
+}
+
+.list-group {
+  padding-left: 0; /* Убираем отступы */
+  margin: 0 auto; /* Центрируем блок списка */
+  list-style-type: decimal; /* Нумерация списка */
+}
+
+.list-group-item {
+  border: none; /* Убираем границу */
+  padding: 0.5rem 0; /* Отступы сверху и снизу */
+}
+
+.list-group-item img {
+  vertical-align: middle; /* Центрируем изображение по вертикали */
+  margin-right: 0.5rem; /* Отступ справа от изображения */
+}
+
+.card-link {
+  color: #979797; /* Задаем цвет ссылок */
+  text-decoration: none; /* Убираем подчеркивание */
+}
+
+
+
+.card {
+  background-color: #dce1e64d;
+  border-radius: 25px !important;
+}
+
+.card:hover {
+  border-color: #0078AB;
+}
+
+h4 {
+  color: #656565 !important;
+  text-align: center !important;
+}
+
+h5 {
+  color: #343434 !important;
+}
+
+
+.h2, h2 {
+  color: #1c1c1c !important;
+  text-align: center !important;
+}
+
+
+.icon-style {
+  height: 30px;
+}
+
+.icon-style.active {
+  filter: brightness(0) saturate(10000%) invert(70%) sepia(1000%) hue-rotate(800000000000deg) contrast(90%);
+}
+
+.icon-style.disactive {
+  filter: brightness(80%) saturate(0%) invert(2%) sepia(1000%) hue-rotate(345deg) contrast(150%);
+}
+
+.card-link:hover .icon-style {
+  opacity: 0.5; /* Прозрачность при наведении */
+}
+
+
+
+.pagination-nav {
+  text-align: center; /* Центрирование содержимого */
+  margin-top: 20px; /* Отступ сверху, при необходимости */
+}
+
+.tag-style {
+  background-color: #447bba57 !important;
+  border-radius: 10px !important;
+}
+.tag-style:hover {
+  background-color: #447bba20 !important;
+}
+
+.tag-style-top {
+  border-color: #ff5e0095 !important;
+  background-color: #ff5e0095 !important;
+  border-radius: 10px !important;
+}
+
+.tag-style-top:hover {
+  background-color: #ff5e0045 !important;
+}
+.img-fluid {
+  height: 100px;
+  width: auto;
+  border-radius: 100px;
+}
+
+.pagination {
+  --bs-pagination-active-bg:#447bba;
+  --bs-pagination-active-border-color:#447bba;
+  display: flex; /* Горизонтальное выравнивание */
+  justify-content: center; /* Центрирование элементов */
+  padding: 0; /* Убираем отступы */
+  margin: 0; /* Убираем отступы */
+  list-style: none; /* Убираем маркеры списка */
+}
+
+.page-item {
+  margin: 0 5px; /* Отступы между элементами */
+}
+
+.page-link {
+  box-shadow: none !important;
+  padding: 0.5rem 1rem; /* Отступы внутри ссылок */
+  border: 1px solid #ccc; /* Обводка */
+  border-radius: 20px !important; /* Закругление углов */
+  text-decoration: none; /* Убираем подчеркивание */
+  color: #447bba; /* Цвет текста */
+  transition: background-color 0.3s; /* Эффект при наведении */
+}
+
+.page-link.active {
+  background-color: #447bba !important;
+}
+
+.main-style {
+  background-color: #dce1e6;
+
+  /* border-top: 0.5px solid rgba(0, 0, 0, 0.1); 
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1); */
+}
+.section-style {
+  background-color: #ffffff;
+  border: 0.5px solid rgba(5, 4, 4, 0.254);
+  padding: 10px ;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.form-control {
+    background-color: rgba(75, 74, 74, 0.15); /* Начальный цвет с прозрачностью */
+    transition: background-color 0.3s; /* Плавный переход */
+}
+
+.form-control:hover {
+  background-color: rgba(75, 74, 74, 0.3); /* Цвет при наведении, менее прозрачный */
+    border: none !important;  /* Убирает рамку */
+    outline: none !important; /* Убирает стандартное обводка */
+}
+
+.form-control:focus {
+    background-color: rgba(75, 74, 74, 0.15); /* Цвет при вводе, тот же, что и изначально */
+    border: none !important;  /* Убирает рамку */
+    outline: none !important; /* Убирает стандартное обводка */
+    box-shadow: none !important;
+}
+
+.btn-outline-primary {
+  color: #fff !important;
+  background-color: #447bba !important;
+  border-color: #0078ab00 !important;
+}
+
+.btn-primary {
+  background-color: #447bba !important;
+  border-color: #447bba !important;
+}
+
+.btn btn-outline-primary me-2 {
+  border-color: #447bba !important;
+}
+
+.btn:hover {
+  color: #fff !important;
+  background-color: #447bba93 !important;
+  border-color: #0078ab00 !important;
+}
+
+.link-body-emphasis {
+  color: #447bba !important;
+}
+.dropdown-item.active {
+  background-color: #447bba !important;
+}
+.dropdown-item:active {
+  background-color: #447bba !important;
+}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+  --bd-violet-bg: #447bba;
+  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-violet-bg);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #447bba;
+  --bs-btn-hover-border-color: #447bba;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #447bba;
+  --bs-btn-active-border-color: #447bba;
+  --bs-pagination-active-bg:#447bba;
+  --bs-pagination-focus-color: #447bba;
+} 
+.bd-mode-toggle {
+  z-index: 1500;
+}
+.bd-mode-toggle .dropdown-menu .active .bi {
+  display: block !important;
+}
