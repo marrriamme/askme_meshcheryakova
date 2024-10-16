@@ -5,7 +5,7 @@
     <script src="../static/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Askme</title>
+    <title>Login</title>
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../static/images/logo2.ico" type="image/x-icon">
     
@@ -17,7 +17,7 @@
 
     <header class="p-3 mb-3 header-style">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between"> <!-- Изменен justify-content -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between"> 
                 <div class="col-md-3 mb-2 mb-md-0">
                     <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="../static/images/askme.svg" alt="aid_logo" width="150" height="40">
@@ -106,7 +106,7 @@
                                 <form class="was-validated">
                                     <div class="mb-3">
                                         <label for="login" class="form-label">Login</label>
-                                        <input type="text" class="form-control" id="login" placeholder="Enter your login here." required>
+                                        <input type="text" class="form-control" id="login" placeholder="Enter your login here." maxlength="20" required>
                                         <div class="invalid-feedback">
                                             Wrong login!
                                         </div>
@@ -114,7 +114,7 @@
                             
                                     <div class="mb-3">
                                         <label for="inputPassword4" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="inputPassword4" placeholder="Enter your password here." required>
+                                        <input type="password" class="form-control" id="inputPassword4" placeholder="Enter your password here." maxlength="20" required>
                                         <div class="invalid-feedback">
                                             Wrong password!
                                         </div>

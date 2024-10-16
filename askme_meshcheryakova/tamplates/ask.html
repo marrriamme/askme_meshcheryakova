@@ -6,7 +6,7 @@
     <script src="../static/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Askme</title>
+    <title>Ask</title>
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../static/images/logo2.ico" type="image/x-icon">
     <link rel="stylesheet" href="../static/css/mystyle.css">
@@ -15,7 +15,7 @@
 <body>
     <header class="p-3 mb-3 header-style">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between"> <!-- Изменен justify-content -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between"> 
                 <div class="col-md-3 mb-2 mb-md-0">
                     <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="../static/images/askme.svg" alt="aid_logo" width="150" height="40">
@@ -30,11 +30,11 @@
                     <button type="button" class="btn btn-outline-primary">Ask!</button>
                 </div>
             
-                <div class="dropdown text-end"> <!-- Перемещено сюда -->
+                <div class="dropdown text-end">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../static/images/ava.jpeg" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end text-small"> <!-- Добавлено dropdown-menu-end -->
+                    <ul class="dropdown-menu dropdown-menu-end text-small">
                     
                     <li>
                         <a class="dropdown-item" href="#">
@@ -116,33 +116,35 @@
                     <div class="col-9 container section-style">
                         <div class="d-flex gap-3 align-items-center justify-content-center">
                             <h2>New Question</h2>
-                            
                         </div>
                         <form class="was-validated">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" placeholder="Add a title" required>
+                                <input type="text" class="form-control" id="title" placeholder="Add a title" maxlength="20" required>
                                 <div class="invalid-feedback">
-                                    The title is too long.
+                                    The title must be 20 characters or less.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="text" class="form-label">Text</label>
-                                <textarea class="form-control" id="text" placeholder="Add a text" required rows="5"></textarea>
+                                <textarea class="form-control" id="text" placeholder="Add a text" maxlength="200" required rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
                                 <div class="invalid-feedback">
-                                    The text is too long.
+                                    The text must be 200 characters or less.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="tags" class="form-label">Tags</label>
-                                <input type="text" class="form-control" id="tags" placeholder="Add tags (up to 3)" required>
+                                <input type="text" class="form-control" id="tags" placeholder="Add tags (up to 3, comma-separated)" required pattern="^([^,]+, ){0,2}[^,]+$">
+
                                 <div class="invalid-feedback">
-                                    You can add up to 3 tags.
+                                    You can add up to 3 tags, separated by commas.
                                 </div>
+                                
                             </div>
+                            <button type="button" class="btn btn-outline-primary">Ask</button>
                         </form>
-                        <button type="button" class="btn btn-outline-primary">Ask</button>
                     </div>
+                    
 
                 </div>
             </div>

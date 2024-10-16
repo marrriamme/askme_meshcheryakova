@@ -5,7 +5,7 @@
     <script src="../static/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Askme</title>
+    <title>Registration</title>
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../static/images/logo2.ico" type="image/x-icon">
     
@@ -17,7 +17,7 @@
 
     <header class="p-3 mb-3 header-style">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between"> <!-- Изменен justify-content -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between"> 
                 <div class="col-md-3 mb-2 mb-md-0">
                     <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="../static/images/askme.svg" alt="aid_logo" width="150" height="40">
@@ -108,7 +108,7 @@
                                     
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="20" required>
                                         <div class="invalid-feedback">
                                             Sorry, this email address already registred!
                                         </div>
@@ -116,21 +116,21 @@
 
                                     <div class="mb-3">
                                         <label for="exampleInputLogin" class="form-label">Login</label>
-                                        <input type="login" class="form-control" id="exampleInputLogin1">
+                                        <input type="login" class="form-control" id="exampleInputLogin1" maxlength="20" required>
         
                                     </div>
                                 
                                     <div class="mb-3">
                                         <label class="form-label">NickName</label>
-                                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" maxlength="20" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" required>
+                                        <input type="password" class="form-control" id="exampleInputPassword1" maxlength="20" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label"> Repeat password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" required>
+                                        <input type="password" class="form-control" id="exampleInputPassword1" maxlength="20" required>
                                         <div class="invalid-feedback">
                                             Passwords don't match!
                                         </div>

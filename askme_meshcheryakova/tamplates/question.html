@@ -6,7 +6,7 @@
     <script src="../static/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Askme</title>
+    <title>Question</title>
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../static/images/logo2.ico" type="image/x-icon">
     <link rel="stylesheet" href="../static/css/mystyle.css">
@@ -15,7 +15,7 @@
 <body>
     <header class="p-3 mb-3 header-style">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between"> <!-- Изменен justify-content -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between"> 
                 <div class="col-md-3 mb-2 mb-md-0">
                     <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="../static/images/askme.svg" alt="aid_logo" width="150" height="40">
@@ -30,11 +30,11 @@
                     <button type="button" class="btn btn-outline-primary">Ask!</button>
                 </div>
             
-                <div class="dropdown text-end"> <!-- Перемещено сюда -->
+                <div class="dropdown text-end"> 
                     <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../static/images/ava.jpeg" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end text-small"> <!-- Добавлено dropdown-menu-end -->
+                    <ul class="dropdown-menu dropdown-menu-end text-small"> 
                     
                     <li>
                         <a class="dropdown-item" href="#">
@@ -127,7 +127,7 @@
                                                 <img src="../static/images/avatar.jpeg" alt="Avatar" class="img-fluid avatar">
                                             </div>
                                         </div>
-                                        <div class="col-10"> <!-- Увеличено до col-10 -->
+                                        <div class="col-10"> 
                                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                             <div class="d-flex gap-5">
                                                 <span>
@@ -168,7 +168,7 @@
                                                 <img src="../static/images/avatar2.jpeg" alt="Avatar" class="img-fluid avatar">
                                             </div>
                                             </div>
-                                        <div class="col-10"> <!-- Увеличено до col-10 -->
+                                        <div class="col-10"> 
                                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                             <div class="d-flex gap-5">
                                                 <span>
@@ -201,7 +201,7 @@
                                                 <img src="../static/images/avatar3.jpeg" alt="Avatar" class="img-fluid avatar">
                                             </div>
                                             </div>
-                                        <div class="col-10"> <!-- Увеличено до col-10 -->
+                                        <div class="col-10"> 
                                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                             <div class="d-flex gap-5">
                                                 <span>
@@ -234,7 +234,7 @@
                                                 <img src="../static/images/avatar4.jpeg" alt="Avatar" class="img-fluid avatar">
                                             </div>
                                             </div>
-                                        <div class="col-10"> <!-- Увеличено до col-10 -->
+                                        <div class="col-10"> 
                                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                             <div class="d-flex gap-5">
                                                 <span>
@@ -261,7 +261,7 @@
                             </div>
                             <form>
                                 <div class="mb-3 card w-100 answer" style="border-radius: none; border-color: rgba(255, 255, 255, 0);">
-                                    <textarea class="form-control" id="text" placeholder="Enter your answer here." required rows="5"></textarea>
+                                    <textarea class="form-control" id="text" placeholder="Enter your answer here." maxlength="200" required rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
                                 </div>
                             </form>
                         </div>
