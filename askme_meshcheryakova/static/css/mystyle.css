@@ -94,7 +94,7 @@
 }
 
 .member-list a {
-  color: #0078AB;
+  color: #3e3e3e;
   text-decoration: none;
 }
 
@@ -144,7 +144,7 @@
 
 .card {
   background-color: #dce1e64d;
-  border-radius: 25px !important;
+  border-radius: 100px !important;
 }
 
 .card:hover {
@@ -169,6 +169,10 @@ h5 {
   height: 30px;
 }
 
+.icon-style-pagination {
+  height: 20px;
+}
+
 .icon-style.active {
   filter: brightness(0) saturate(10000%) invert(70%) sepia(1000%) hue-rotate(800000000000deg) contrast(90%);
 }
@@ -188,7 +192,7 @@ h5 {
 
 .tag-style {
   background-color: #447bba57 !important;
-  border-radius: 10px !important;
+  border-radius: 8px !important;
 }
 
 .tag-style:hover {
@@ -196,9 +200,9 @@ h5 {
 }
 
 .tag-style-top {
-  border-color: #ff5e0095 !important;
-  background-color: #ff5e0095 !important;
-  border-radius: 10px !important;
+  border-color: #ff5e0068 !important;
+  background-color: #ff5e005a !important;
+  border-radius: 8px !important;
 }
 
 .tag-style-top:hover {
@@ -316,6 +320,7 @@ h5 {
     font-size: 3.5rem;
   }
 }
+
 
 .b-example-divider {
   width: 100%;
