@@ -120,32 +120,30 @@
                         <form class="was-validated">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" placeholder="Add a title" maxlength="20" required>
+                                <input type="text" class="form-control" id="title" placeholder="Add a title" maxlength="100" required>
                                 <div class="invalid-feedback">
-                                    The title must be 20 characters or less.
+                                    The title must be 50 characters or less.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="text" class="form-label">Text</label>
-                                <textarea class="form-control" id="text" placeholder="Add a text" maxlength="200" required rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
+                                <textarea class="form-control textarea-style" id="text" placeholder="Add a text" maxlength="500" required rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
                                 <div class="invalid-feedback">
-                                    The text must be 200 characters or less.
+                                    The text must be 500 characters or less.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="tags" class="form-label">Tags</label>
-                                <input type="text" class="form-control" id="tags" placeholder="Add tags (up to 3, comma-separated)" required pattern="^([^,]+, ){0,2}[^,]+$">
-
+                                <input type="text" class="form-control " id="tags" maxlength="100" placeholder="Add tags (up to 3, comma-separated)" required pattern="^([^,]+, ){0,2}[^,]+$">
                                 <div class="invalid-feedback">
                                     You can add up to 3 tags, separated by commas.
-                                </div>
-                                
+                                </div>  
                             </div>
-                            <button type="button" class="btn btn-outline-primary">Ask</button>
+                            <div class="button-container">
+                                <button type="submit" class="btn btn-primary">Ask</button>
+                            </div>
                         </form>
                     </div>
-                    
-
                 </div>
             </div>
         </div>

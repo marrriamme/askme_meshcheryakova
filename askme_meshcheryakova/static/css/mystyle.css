@@ -4,6 +4,10 @@
   border: none !important;
 }
 
+.textarea-style {
+  max-height: 150px;
+}
+
 .link-container {
   display: flex;
   gap: 15px;
