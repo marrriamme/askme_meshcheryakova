@@ -13,7 +13,7 @@
     <link href="../static/css/headers.css" rel="stylesheet">
 </head>
 <body>
-    <header class="p-3 mb-3 header-style">
+    <header class="p-3 mb-3 header-style my-header">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-between"> 
                 <div class="col-md-3 mb-2 mb-md-0">
@@ -45,7 +45,7 @@
                     <li>
                         <a class="dropdown-item" href="#">
                         <img src="../static/images/User.svg" alt="" style="height: 20px;">
-                        Profil
+                        Profile
                         </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
@@ -81,6 +81,17 @@
                         <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
                         <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
                         <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
+                        <span class="badge bg-primary-subtle border border-dark-subtle text-dark-emphasis rounded-pill tag-style-top">tag</span>
                     </div>
                 </section>
 
@@ -89,7 +100,27 @@
                     <div class="member-list">
                         <ol class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <img src="../static/images/star_filled.svg" alt="">
+                                <img src="../static/images/icon.svg" alt="">
+                                <a href="#">Member 1</a>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="../static/images/icon.svg" alt="">
+                                <a href="#">Member 2</a>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="../static/images/icon.svg" alt="">
+                                <a href="#">Member 3</a>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="../static/images/icon.svg" alt="">
+                                <a href="#">Member 4</a>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="../static/images/icon.svg" alt="">
+                                <a href="#">Member 5</a>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="../static/images/icon.svg" alt="">
                                 <a href="#">Member 1</a>
                             </li>
                             <li class="list-group-item">
@@ -137,11 +168,11 @@
                                                     3
                                                 </a>
                                                 <a href="#" class="card-link">
-                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style active">
+                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                 </a>
                                                 <a href="#" class="card-link">
-                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style">
+                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                 </a>
                                             
@@ -173,11 +204,11 @@
                                             <div class="d-flex gap-5">
                                                 <span>
                                                     <a href="#" class="card-link">
-                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style active">
+                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                     </a>
                                                     <a href="#" class="card-link">
-                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style">
+                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                     </a>
                                                 </span>
@@ -206,11 +237,11 @@
                                             <div class="d-flex gap-5">
                                                 <span>
                                                     <a href="#" class="card-link">
-                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style active">
+                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                     </a>
                                                     <a href="#" class="card-link">
-                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style">
+                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                     </a>
                                                 </span>
@@ -239,11 +270,11 @@
                                             <div class="d-flex gap-5">
                                                 <span>
                                                     <a href="#" class="card-link">
-                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style">
+                                                    <img src="../static/images/Heart.svg" alt="Like" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                     </a>
                                                     <a href="#" class="card-link">
-                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style disactive">
+                                                    <img src="../static/images/heartbreak.svg" alt="Dislike" class="icon-style" onclick="toggleActive(this)">
                                                     3
                                                     </a>
                                                 </span>

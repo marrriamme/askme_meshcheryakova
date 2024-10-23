@@ -1,3 +1,16 @@
+
+.my-header {
+  background-color:#fff;
+  position: fixed;
+  width: 100%; 
+  position: fixed; 
+  top: 0;         
+  z-index: 1000; 
+}
+body {
+  margin-top: 80px;
+  min-height: 100vh;
+}
 .answer {
   transform: scale(0.8); 
   background-color: #ffffff !important;
@@ -148,7 +161,7 @@
 
 .card {
   background-color: #dce1e64d;
-  border-radius: 100px !important;
+  border-radius: 40px !important;
 }
 
 .card:hover {
@@ -178,11 +191,7 @@ h5 {
 }
 
 .icon-style.active {
-  filter: brightness(0) saturate(10000%) invert(70%) sepia(1000%) hue-rotate(800000000000deg) contrast(90%);
-}
-
-.icon-style.disactive {
-  filter: brightness(80%) saturate(0%) invert(2%) sepia(1000%) hue-rotate(345deg) contrast(150%);
+  filter: brightness(80%) saturate(0%) invert(2%) sepia(1000%) hue-rotate(304deg) contrast(150%);
 }
 
 .card-link:hover .icon-style {
@@ -204,19 +213,19 @@ h5 {
 }
 
 .tag-style-top {
-  border-color: #ff5e0068 !important;
-  background-color: #ff5e005a !important;
+  background-color: #2b4c7157 !important;
+  background-color: #447bba57 !important;
   border-radius: 8px !important;
 }
 
 .tag-style-top:hover {
-  background-color: #ff5e0045 !important;
+  background-color: #447bba20 !important;
 }
 
 .img-fluid {
-  height: 100px;
-  width: auto;
-  border-radius: 100px;
+  height: auto;
+  width: 100px;
+  border-radius: 1000px;
 }
 
 .pagination {
@@ -259,6 +268,7 @@ h5 {
   margin-bottom: 10px;
   border-radius: 15px;
 }
+
 
 .form-control {
   background-color: rgba(75, 74, 74, 0.15);
