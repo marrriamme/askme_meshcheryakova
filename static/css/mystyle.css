@@ -177,6 +177,7 @@ h5 {
   color: #343434 !important;
 }
 
+
 .h2, h2 {
   color: #1c1c1c !important;
   text-align: center !important;
@@ -203,9 +204,15 @@ h5 {
   margin-top: 20px;
 }
 
+button {
+  border: none !important;
+  background-color: #fff !important;
+}
+
 .tag-style {
   background-color: #447bba57 !important;
   border-radius: 8px !important;
+  text-decoration: none !important;
 }
 
 .tag-style:hover {
@@ -398,4 +405,12 @@ h5 {
 
 .bd-mode-toggle .dropdown-menu .active .bi {
   display: block !important;
+}
+
+.card-title a {
+  color: #343434 !important;
+  text-decoration: none;
+}
+.card-title a:hover {
+  color: #5781a2 !important; 
 }

@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}  
+<div class="col-9 container section-style">
+    <a href="#" class="card-link"></a>
+        <img src="{% static 'images/Arrow left circle.svg' %}" alt="Answer" class="icon-style" onclick="window.history.back()">
+    </a>
+    <div class="d-flex gap-3 align-items-center justify-content-center">
+        <h2>Settings</h2>   
+    </div>
+    <div class="myform-container">
+        <div class="signup-container">
+            <form class="was-validated">
+                <div class="mb-3">
+                    <label for="exampleInputLogin" class="form-label">Login</label>
+                    <input type="login" class="form-control" maxlength="20" id="exampleInputLogin1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="20">
+                    <div class="invalid-feedback">
+                        Sorry, this email address already registered!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">NickName</label>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" maxlength="20">
+                </div>
+                <div class="avatar-container mb-3">
+                    <img src="{% static 'images/ava.jpeg' %}" alt="Avatar" class="img-fluid avatar">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Upload avatar</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
