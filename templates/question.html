@@ -56,10 +56,9 @@ Question
         <hr>
         <div>
             {% for answer in answers %}
-            {% include 'layouts/answer.html' %}
+            {% include 'components/answer.html' %}
             {% endfor %}
-
-            {% include 'layouts/pagination.html' with page=page %}
+            {% include 'components/pagination.html' with page=page %}
         </div>
     </div>
     <form>

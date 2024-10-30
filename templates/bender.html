@@ -16,9 +16,9 @@ Tag: {{ tag_name }}
     </div>
     <div class="d-flex flex-column gap-3">
         {% for question in questions %}
-        {% include 'layouts/card.html' %}
+        {% include 'components/card.html' %}
         {% endfor %}
-        {% include 'layouts/pagination.html' %}
+        {% include 'components/pagination.html' %}
 
     </div>
 </div>
