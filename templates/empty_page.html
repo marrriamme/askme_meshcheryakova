@@ -1,0 +1,19 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+Empty Page
+{% endblock %}
+
+{% block content %}
+<div class="col-9 container section-style">
+    <div class="d-flex gap-3 align-items-center justify-content-center flex-column mt-5">  
+        <h2 class="display-4">No Items Available</h2>
+    </div>
+    <div class="text-center mt-4">  
+        <p>It seems that there are currently no items to display.</p>
+        <p>Please check back later or try adjusting your search criteria.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary">Return to Home</a>
+    </div>
+</div>
+{% endblock %}

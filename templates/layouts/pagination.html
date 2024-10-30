@@ -2,32 +2,36 @@
 <nav aria-label="pagination-nav" class="pagination-nav">
     <ul class="pagination">
         <li class="page-item {% if page.has_previous %}{% else %}disabled{% endif %}">
-            <a class="page-link" href="{% if page.has_previous %}?page={{ page.previous_page_number }}&per_page={{ page.paginator.per_page }}{% endif %}">
+            <a class="page-link"
+                href="{% if page.has_previous %}?page={{ page.previous_page_number }}&per_page={{ page.paginator.per_page }}{% endif %}">
                 <img src="{% static 'images/Arrow left.svg' %}" alt="arrow-left" class="icon-style-pagination">
             </a>
         </li>
-        
+
         {% for num in page.paginator.page_range %}
-            <li class="page-item {% if page.number == num %}active{% endif %}" aria-current="{% if page.number == num %}page{% endif %}">
-                <a class="page-link" href="?page={{ num }}&per_page={{ page.paginator.per_page }}">{{ num }}</a>
-            </li>
+        <li class="page-item {% if page.number == num %}active{% endif %}"
+            aria-current="{% if page.number == num %}page{% endif %}">
+            <a class="page-link" href="?page={{ num }}&per_page={{ page.paginator.per_page }}">{{ num }}</a>
+        </li>
         {% endfor %}
-        
+
         <li class="page-item {% if page.has_next %}{% else %}disabled{% endif %}">
-            <a class="page-link" href="{% if page.has_next %}?page={{ page.next_page_number }}&per_page={{ page.paginator.per_page }}{% endif %}">
+            <a class="page-link"
+                href="{% if page.has_next %}?page={{ page.next_page_number }}&per_page={{ page.paginator.per_page }}{% endif %}">
                 <img src="{% static 'images/Arrow right.svg' %}" alt="arrow-right" class="icon-style-pagination">
             </a>
         </li>
-    </ul>   
+    </ul>
     <form method="GET" action="" class="mb-3 text-center" style="margin-top: 20px;">
         <div class="input-group" style="max-width: 300px; margin: 0 auto;">
             <label class="input-group-text" for="per_page" style="color: #656565;"> Display on page:</label>
-            <select name="per_page" id="per_page" class="form-select my-pagin-form" onchange="this.form.submit()" style="color: #447bba; box-shadow: none !important; border-color: #e6e8ec;">
+            <select name="per_page" id="per_page" class="form-select my-pagin-form" onchange="this.form.submit()"
+                style="color: #447bba; box-shadow: none !important; border-color: #e6e8ec;">
                 <option value="5" {% if page.paginator.per_page == 5 %}selected{% endif %}>5</option>
                 <option value="10" {% if page.paginator.per_page == 10 %}selected{% endif %}>10</option>
                 <option value="20" {% if page.paginator.per_page == 20 %}selected{% endif %}>20</option>
                 <option value="30" {% if page.paginator.per_page == 30 %}selected{% endif %}>30</option>
             </select>
         </div>
-    </form> 
+    </form>
 </nav>

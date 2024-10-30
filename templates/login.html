@@ -2,28 +2,30 @@
 {% load static %}
 
 {% block title %}
-
+Log in
 {% endblock %}
 
-{% block content %}  
+{% block content %}
 <div class="col-9 container section-style">
-    <div class="d-flex gap-3 align-items-center justify-content-center" >
-        <h2>Log in</h2>   
+    <div class="d-flex gap-3 align-items-center justify-content-center">
+        <h2>Log in</h2>
     </div>
     <div class="login-container">
         <div class="myform-container">
             <form class="was-validated">
                 <div class="mb-3">
                     <label for="login" class="form-label">Login</label>
-                    <input type="text" class="form-control" id="login" placeholder="Enter your login here." maxlength="20" required>
+                    <input type="text" class="form-control" id="login" placeholder="Enter your login here."
+                        maxlength="20" required>
                     <div class="invalid-feedback">
                         Wrong login!
                     </div>
                 </div>
-        
+
                 <div class="mb-3">
                     <label for="inputPassword4" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="Enter your password here." maxlength="20" required>
+                    <input type="password" class="form-control" id="inputPassword4"
+                        placeholder="Enter your password here." maxlength="20" required>
                     <div class="invalid-feedback">
                         Wrong password!
                     </div>
@@ -38,7 +40,7 @@
                 <img src="../static/images/User.svg" alt="" style="height: 20px;">
                 Create new account
             </a>
-        </div> 
-    </div>   
+        </div>
+    </div>
 </div>
 {% endblock %}

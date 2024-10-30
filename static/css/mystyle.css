@@ -192,7 +192,7 @@ h5 {
 }
 
 .icon-style.active {
-  filter: brightness(80%) saturate(0%) invert(2%) sepia(1000%) hue-rotate(304deg) contrast(150%);
+  filter: brightness(80%) saturate(0%) invert(2%) sepia(1000%) hue-rotate(171deg) contrast(150%);
 }
 
 .card-link:hover .icon-style {

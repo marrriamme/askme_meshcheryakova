@@ -2,27 +2,26 @@
 <div class="card w-100 answer">
     <div class="card-body">
         <div class="row">
-            <div class="col-2"> 
+            <div class="col-2">
                 <div class="avatar-container mb-2">
                     <img src="{% static 'images/avatar2.jpeg' %}" alt="Avatar" class="img-fluid avatar">
                 </div>
             </div>
-            <div class="col-10"> 
+            <div class="col-10">
                 <p class="card-text">{{ answer.text }}</p>
                 <div class="d-flex gap-5">
                     <span>
-                        <a href="#" class="card-link" onclick="toggleActive(event, 'like')">
-                            <img src="{% static 'images/Heart.svg' %}" alt="Like" class="icon-style" id="like">
-                            3
+                        <a href="#" class="card-link" onclick="toggleActive(event, 'like', '{{ answer.id }}')">
+                            <img src="{% static 'images/Heart.svg' %}" alt="Like" class="icon-style" id="like-{{ answer.id }}">
                         </a>
-                        <a href="#" class="card-link" onclick="toggleActive(event, 'dislike')">
-                            <img src="{% static 'images/heartbreak.svg' %}" alt="Dislike" class="icon-style" id="dislike">
-                            3
+                        <span id="like-counter-{{ answer.id }}" class="card-link">{{ answer.like_counter }}</span>
+                        <a href="#" class="card-link" onclick="toggleActive(event, 'dislike', '{{ answer.id }}')">
+                            <img src="{% static 'images/heartbreak.svg' %}" alt="Dislike" class="icon-style" id="dislike-{{ answer.id }}">
                         </a>
                     </span>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="correct-{{ answer.id }}" onclick="setCorrectAnswer('{{ answer.id }}')">
+                        <label class="form-check-label" for="correct-{{ answer.id }}">
                             Correct!
                         </label>
                     </div>

@@ -2,22 +2,23 @@
 {% load static %}
 
 {% block title %}
-
+Registration
 {% endblock %}
 
-{% block content %}  
+{% block content %}
 <div class="col-9 container section-style">
     <div class="d-flex gap-3 align-items-center justify-content-center">
-        <h2>Registration</h2>   
+        <h2>Registration</h2>
     </div>
-    
+
     <div class="myform-container">
         <div class="signup-container">
             <form class="was-validated">
-                
+
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="50" required>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        maxlength="50" required>
                     <div class="invalid-feedback">
                         Sorry, this email address already registred!
                     </div>
@@ -28,10 +29,11 @@
                     <input type="login" class="form-control" id="exampleInputLogin1" maxlength="50" required>
 
                 </div>
-            
+
                 <div class="mb-3">
                     <label class="form-label">NickName</label>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" maxlength="20" required>
+                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                        maxlength="20" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -51,7 +53,7 @@
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary">Register</button>
                 </div>
-                
+
             </form>
         </div>
     </div>

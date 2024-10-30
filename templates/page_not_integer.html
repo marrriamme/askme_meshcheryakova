@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+404 Not Found
+{% endblock %}
+
+{% block content %}
+<div class="col-9 container section-style">
+    <div class="d-flex gap-3 align-items-center justify-content-center flex-column mt-5">  
+        <h2 class="display-1">404</h2>
+        <h2 class="display-4">Page Not Found</h2>
+    </div>
+    <div class="text-center mt-4">  
+        <p>We're sorry, but the page you are looking for does not exist.</p>
+        <p>It may have been moved, deleted, or you may have typed the wrong URL.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary">Go to Home</a>
+    </div>
+</div>
+{% endblock %}

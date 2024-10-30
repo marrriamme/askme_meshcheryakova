@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-
+Home
 {% endblock %}
 
 {% block content %}
@@ -10,13 +10,14 @@
     <div class="d-flex gap-3 align-items-center justify-content-center">
         <h2>New Questions</h2>
         <a href="{% url 'hot' %}" class="main-link">
-            <img src="{% static 'images/fire.svg' %}" alt="Answer" style="filter: brightness(0) saturate(100%) invert(57%) sepia(85%) saturate(1500%) hue-rotate(353deg) brightness(103%) contrast(101%); height: 25px;">
+            <img src="{% static 'images/fire.svg' %}" alt="Answer"
+                style="filter: brightness(0) saturate(100%) invert(57%) sepia(85%) saturate(1500%) hue-rotate(353deg) brightness(103%) contrast(101%); height: 25px;">
             Hot Questions
         </a>
     </div>
     <div class="d-flex flex-column gap-3">
         {% for question in questions %}
-            {% include 'layouts/card.html' %}
+        {% include 'layouts/card.html' %}
         {% endfor %}
         {% include 'layouts/pagination.html' %}
     </div>

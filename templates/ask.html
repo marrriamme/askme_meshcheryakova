@@ -1,11 +1,11 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-
+Ask
 {% block title %}
 
 {% endblock %}
 
-{% block content %}  
+{% block content %}
 <div class="col-9 container section-style">
     <div class="d-flex gap-3 align-items-center justify-content-center">
         <h2>New Question</h2>
@@ -20,17 +20,19 @@
         </div>
         <div class="mb-3">
             <label for="text" class="form-label">Text</label>
-            <textarea class="form-control textarea-style" id="text" placeholder="Add a text" maxlength="500" required rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
+            <textarea class="form-control textarea-style" id="text" placeholder="Add a text" maxlength="500" required
+                rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
             <div class="invalid-feedback">
                 The text must be 500 characters or less.
             </div>
         </div>
         <div class="mb-3">
             <label for="tags" class="form-label">Tags</label>
-            <input type="text" class="form-control " id="tags" maxlength="100" placeholder="Add tags (up to 3, comma-separated)" required pattern="^([^,]+, ){0,2}[^,]+$">
+            <input type="text" class="form-control " id="tags" maxlength="100"
+                placeholder="Add tags (up to 3, comma-separated)" required pattern="^([^,]+, ){0,2}[^,]+$">
             <div class="invalid-feedback">
                 You can add up to 3 tags, separated by commas.
-            </div>  
+            </div>
         </div>
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Ask</button>

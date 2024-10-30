@@ -5,15 +5,21 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import random
 
 AVAILABLE_TAGS = [f'tag name {i}' for i in range(20)]
-AVAILABLE_ANSWERS = [f'answer id {i}' for i in range(20)]
 
 QUESTIONS = [
     {
         'title': f'title {i}',
         'id': i,
         'text': f'This text for question # {i}',
-        'answers': [{'id': j, 'text': f'Answer text for question {i}, answer {j}'} for j in range(random.randint(0, 20))], 
-        'tags': random.sample(AVAILABLE_TAGS, 3)  
+        'answers': [
+            {
+                'id': f'answer {j}', 
+                'text': f'Answer text for question {i}, answer {j}',
+                'like_counter': j,
+            } for j in range(random.randint(0, 20))
+        ], 
+        'tags': random.sample(AVAILABLE_TAGS, 3),
+        'like_counter': i
     } for i in range(60)
 ]
 
@@ -33,6 +39,9 @@ MEMBERS = [
 
 def index(request):
     page = paginate(QUESTIONS, request)
+    
+    if isinstance(page, HttpResponse):
+        return page  
     questions_with_counts = [
         {**question, 'answers_count': len(question['answers'])} for question in page.object_list
     ]
@@ -45,6 +54,10 @@ def hot(request):
     hot_questions = copy.deepcopy(QUESTIONS)
     hot_questions.reverse()
     page = paginate(hot_questions, request)
+    
+    if isinstance(page, HttpResponse):
+        return page
+
     questions_with_counts = [
         {**question, 'answers_count': len(question['answers'])} for question in page.object_list
     ]
@@ -56,6 +69,10 @@ def hot(request):
 def tag(request, tag_name):
     filtered_questions = [q for q in QUESTIONS if tag_name in q['tags']]
     page = paginate(filtered_questions, request)
+
+    if isinstance(page, HttpResponse):
+        return page
+
     questions_with_counts = [
         {**question, 'answers_count': len(question['answers'])} for question in page.object_list
     ]
@@ -66,8 +83,6 @@ def tag(request, tag_name):
         'page': page,
         'members': MEMBERS
     })
-
-
 
 
 
@@ -114,7 +129,6 @@ def signup(request):
         {'tags': TAGS, 'members':  MEMBERS}
     )
 
-
 def paginate(objects_list, request):
     page_number = request.GET.get('page', 1)
     per_page = request.GET.get('per_page', 20)
@@ -129,10 +143,9 @@ def paginate(objects_list, request):
     try:
         page = paginator.page(page_number)
     except PageNotAnInteger:
-        page = paginator.page(1)
+        return render(request, 'page_not_integer.html', {'per_page': per_page, 'tags': TAGS, 'members':  MEMBERS})
     except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+        return render(request, 'empty_page.html', {'num_pages': paginator.num_pages, 'per_page': per_page, 'tags': TAGS, 'members':  MEMBERS})
 
     return page
-
 
