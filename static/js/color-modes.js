@@ -1,10 +1,24 @@
-function toggleActive(event, type, questionId) {
+function toggleQuestionActive(event, type, cardID) {
   event.preventDefault();
 
-  const likeIcon = document.getElementById(`like-${questionId}`);
-  const dislikeIcon = document.getElementById(`dislike-${questionId}`);
-  const countElement = document.getElementById(`like-counter-${questionId}`);
+  const likeIcon = document.getElementById(`question-like-${cardID}`);
+  const dislikeIcon = document.getElementById(`question-dislike-${cardID}`);
+  const countElement = document.getElementById(`question-like-counter-${cardID}`);
 
+  toggleHTMLElements(type, likeIcon, dislikeIcon, countElement)
+}
+
+function toggleAnswerActive(event, type, cardID) {
+  event.preventDefault();
+
+  const likeIcon = document.getElementById(`answer-like-${cardID}`);
+  const dislikeIcon = document.getElementById(`answer-dislike-${cardID}`);
+  const countElement = document.getElementById(`answer-like-counter-${cardID}`);
+
+  toggleHTMLElements(type, likeIcon, dislikeIcon, countElement)
+}
+
+function toggleHTMLElements(type, likeIcon, dislikeIcon, countElement) {
   let count = parseInt(countElement.innerText);
 
   if (type === 'like') {
@@ -39,10 +53,22 @@ function toggleActive(event, type, questionId) {
 
 
 function setCorrectAnswer(answerId) {
-  const checkboxes = document.querySelectorAll('.form-check-input');
-  checkboxes.forEach(checkbox => {
-    if (checkbox.id !== `correct-${answerId}`) {
-      checkbox.checked = false;
-    }
+  var checkbox = document.getElementById('correct-' + answerId);
+  var url = '/set-correct-answer/' + answerId + '/';  // Путь для обновления состояния ответа на сервере
+
+  // Отправляем запрос на сервер для обновления флага
+  fetch(url, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+      },
+      body: JSON.stringify({ 'is_correct': checkbox.checked })
+  }).then(function(response) {
+      if (checkbox.checked) {
+          checkbox.parentNode.classList.add('text-success');  // Зеленый цвет для выбранного ответа
+      } else {
+          checkbox.parentNode.classList.remove('text-success');  // Убираем зеленый цвет
+      }
   });
 }

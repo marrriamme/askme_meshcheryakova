@@ -4,23 +4,26 @@
         <div class="row">
             <div class="col-2">
                 <div class="avatar-container mb-2">
-                    <img src="{% static 'images/avatar2.jpeg' %}" alt="Avatar" class="img-fluid avatar">
+                    <img src="{% static answer.author.avatar %}" alt="Avatar" class="img-fluid avatar">
                 </div>
             </div>
             <div class="col-10">
                 <p class="card-text">{{ answer.text }}</p>
                 <div class="d-flex gap-5">
                     <span>
-                        <a href="#" class="card-link" onclick="toggleActive(event, 'like', '{{ answer.id }}')">
-                            <img src="{% static 'images/Heart.svg' %}" alt="Like" class="icon-style" id="like-{{ answer.id }}">
+                        <a href="#" class="card-link" onclick="toggleAnswerActive(event, 'like', '{{ answer.id }}')">
+                            <img src="{% static 'images/Heart.svg' %}" alt="Like" class="icon-style"
+                                id="answer-like-{{ answer.id }}">
                         </a>
-                        <span id="like-counter-{{ answer.id }}" class="card-link">{{ answer.like_counter }}</span>
-                        <a href="#" class="card-link" onclick="toggleActive(event, 'dislike', '{{ answer.id }}')">
-                            <img src="{% static 'images/heartbreak.svg' %}" alt="Dislike" class="icon-style" id="dislike-{{ answer.id }}">
+                        <span id="answer-like-counter-{{ answer.id }}" class="card-link">{{ answer.likes_count }}</span>
+                        <a href="#" class="card-link" onclick="toggleAnswerActive(event, 'dislike', '{{ answer.id }}')">
+                            <img src="{% static 'images/heartbreak.svg' %}" alt="Dislike" class="icon-style"
+                                id="answer-dislike-{{ answer.id }}">
                         </a>
                     </span>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="correct-{{ answer.id }}" onclick="setCorrectAnswer('{{ answer.id }}')">
+                        <input class="form-check-input" type="checkbox" value="" id="correct-{{ answer.id }}"
+                            onclick="setCorrectAnswer('{{ answer.id }}')" {% if answer.is_correct %}checked{% endif %}>
                         <label class="form-check-label" for="correct-{{ answer.id }}">
                             Correct!
                         </label>
