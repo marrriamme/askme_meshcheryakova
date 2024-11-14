@@ -63,16 +63,10 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Creating answers...'))
             answers = []
             for question in questions:
-                # Сначала создаем один правильный ответ
-                correct_answer = Answer(
-                    question=question,
-                    text=f'This is the correct answer to question {question.id}',
-                    author=random.choice(profiles),
-                    is_correct=True  # Устанавливаем правильный ответ
-                )
-                answers.append(correct_answer)
-
-                # Создаем несколько неправильных ответов
+                # Случайное количество неправильных ответов (например, от 1 до 5)
+                num_incorrect_answers = random.randint(1, 5)
+                
+                # Создаем неправильные ответы
                 incorrect_answers = [
                     Answer(
                         question=question,
@@ -80,12 +74,26 @@ class Command(BaseCommand):
                         author=random.choice(profiles),
                         is_correct=False
                     )
-                    for _ in range(10)  # Уменьшаем количество неправильных ответов
+                    for _ in range(num_incorrect_answers)
                 ]
+                
+                # Создаем один правильный ответ
+                correct_answer = Answer(
+                    question=question,
+                    text=f'This is the correct answer to question {question.id}',
+                    author=random.choice(profiles),
+                    is_correct=True
+                )
+                
+                # Вставляем правильный ответ случайным образом в список
+                incorrect_answers.insert(random.randint(0, num_incorrect_answers), correct_answer)
+                
+                # Добавляем все ответы в общий список
                 answers.extend(incorrect_answers)
 
             self.stdout.write(self.style.SUCCESS(f'Creating {len(answers)} answers'))
             Answer.objects.bulk_create(answers)
+
 
             # Создаем уникальные оценки пользователей к вопросам
             self.stdout.write(self.style.SUCCESS('Creating question likes...'))

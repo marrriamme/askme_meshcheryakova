@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Question, Tag, Profile
+from .models import Question, Tag, Profile, Answer
+
 
 def index(request):
     questions = Question.objects.new_questions()
@@ -45,20 +46,22 @@ def question(request, question_id):
 def ask(request):
     return render(request, 'ask.html', get_common_context())
 
+def signup(request):
+    return render(request, 'signup.html', get_common_context())
+
 def login(request):
     return render(request, 'login.html', get_common_context())
 
 def settings(request):
     return render(request, 'settings.html', get_common_context())
-
-def signup(request):
-    return render(request, 'signup.html', get_common_context())
+from django.db.models import Q
 
 def get_common_context():
     return {
-        'tags': Tag.objects.all()[:20],
-        'members': Profile.objects.all()[:20]  
+        'tags': Tag.objects.best_tags(),
+        'members': Profile.objects.best_members()
     }
+
 
 def paginate(objects_list, request, per_page=30):
     page_number = request.GET.get('page', 1)

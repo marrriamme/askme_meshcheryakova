@@ -54,9 +54,9 @@ function toggleHTMLElements(type, likeIcon, dislikeIcon, countElement) {
 
 function setCorrectAnswer(answerId) {
   var checkbox = document.getElementById('correct-' + answerId);
-  var url = '/set-correct-answer/' + answerId + '/';  // Путь для обновления состояния ответа на сервере
+  var url = '/set-correct-answer/' + answerId + '/';  
 
-  // Отправляем запрос на сервер для обновления флага
+
   fetch(url, {
       method: 'POST',
       headers: {
@@ -66,9 +66,9 @@ function setCorrectAnswer(answerId) {
       body: JSON.stringify({ 'is_correct': checkbox.checked })
   }).then(function(response) {
       if (checkbox.checked) {
-          checkbox.parentNode.classList.add('text-success');  // Зеленый цвет для выбранного ответа
+          checkbox.parentNode.classList.add('text-success');  
       } else {
-          checkbox.parentNode.classList.remove('text-success');  // Убираем зеленый цвет
+          checkbox.parentNode.classList.remove('text-success');  
       }
   });
 }

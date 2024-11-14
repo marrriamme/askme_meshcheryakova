@@ -1,7 +1,6 @@
 {% load static %}
 <nav aria-label="pagination-nav" class="pagination-nav">
     <ul class="pagination">
-        <!-- Кнопка "Назад" -->
         <li class="page-item {% if page.has_previous %}{% else %}disabled{% endif %}">
             <a class="page-link"
                 href="{% if page.has_previous %}?page={{ page.previous_page_number }}&per_page={{ page.paginator.per_page }}{% endif %}">
@@ -9,7 +8,6 @@
             </a>
         </li>
 
-        <!-- Предыдущая страница -->
         {% if page.has_previous %}
         <li class="page-item">
             <a class="page-link" href="?page={{ page.previous_page_number }}&per_page={{ page.paginator.per_page }}">
@@ -18,14 +16,12 @@
         </li>
         {% endif %}
 
-        <!-- Текущая страница -->
         <li class="page-item active" aria-current="page">
             <a class="page-link" href="#">
                 {{ page.number }}
             </a>
         </li>
 
-        <!-- Следующая страница -->
         {% if page.has_next %}
         <li class="page-item">
             <a class="page-link" href="?page={{ page.next_page_number }}&per_page={{ page.paginator.per_page }}">
@@ -36,17 +32,16 @@
 
         {% if page.paginator.num_pages > page.number|add:1 %}
         <li class="page-item disabled">
-            <span class="page-link">...</span> <!-- Двоеточие, если между текущей и последней есть страницы -->
+            <span class="page-link">...</span>
         </li>
 
         <li class="page-item">
             <a class="page-link" href="?page={{ page.paginator.num_pages }}&per_page={{ page.paginator.per_page }}">
-                {{ page.paginator.num_pages }} <!-- Последняя страница -->
+                {{ page.paginator.num_pages }}
             </a>
         </li>
         {% endif %}
 
-        <!-- Кнопка "Вперёд" -->
         <li class="page-item {% if page.has_next %}{% else %}disabled{% endif %}">
             <a class="page-link"
                 href="{% if page.has_next %}?page={{ page.next_page_number }}&per_page={{ page.paginator.per_page }}{% endif %}">
