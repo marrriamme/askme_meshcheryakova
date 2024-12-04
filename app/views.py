@@ -40,6 +40,7 @@ def tag(request, tag_name):
         **get_common_context()
     })
 
+@login_required
 def question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     answers_page = paginate(question.answers.all(), request) 
@@ -74,7 +75,6 @@ def ask(request):
             return redirect(request.GET.get('continue', reverse('question', kwargs={'question_id': question.pk})))     
     return render(request, 'ask.html', {"form": form, **get_common_context()})
 
-
 def signup(request):
     continue_url = request.GET.get('continue', reverse('index'))
     if request.method == 'POST':
@@ -87,10 +87,9 @@ def signup(request):
         form = SignupForm() 
     return render(request, 'signup.html', {"form": form, **get_common_context()})
 
-
 def login(request):
     form = LoginForm
-    continue_url = request.GET.get('continue', reverse('index'))
+    next_url = request.GET.get('next', reverse('index'))  
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -98,7 +97,7 @@ def login(request):
             user = auth.authenticate(request, **form.cleaned_data)
             if user:
                 auth.login(request, user)
-                return redirect(continue_url)
+                return redirect(next_url)
             form.add_error('password', 'Invalid username or password.')
     return render(request, 'login.html', {"form": form, **get_common_context()})
 
