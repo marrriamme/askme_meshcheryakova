@@ -16,35 +16,53 @@ Settings
     </div>
     <div class="myform-container">
         <div class="signup-container">
-            <form class="was-validated">
+            <form class="was-validated"  method="post">
+                {% csrf_token %}
                 <div class="mb-3">
-                    <label for="exampleInputLogin" class="form-label">Login</label>
-                    <input type="login" class="form-control" maxlength="20" id="exampleInputLogin1">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        maxlength="20">
+                    <label class="form-label">Login</label>
+                    <input type="text" class="form-control" aria-label="Username" value="{{ form.username.value }}"
+                        aria-describedby="basic-addon1" name = "username" maxlength="20">
                     <div class="invalid-feedback">
-                        Sorry, this email address already registered!
+                        {% for error in form.username.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name = "email" value="{{ form.email.value }}" maxlength="20">
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">NickName</label>
-                    <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
-                        maxlength="20">
+                    <input type="text" name="nickname" class="form-control {% if form.nickname.errors %}is-invalid{% endif %}" aria-label="NickName"
+                        value="{{ form.nickname.value }}"
+                        aria-describedby="basic-addon1" maxlength="20">
+                    <div class="invalid-feedback">
+                        {% for error in form.nickname.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
+                
+                
                 <div class="avatar-container mb-3">
-                    <img src="{% static 'images/ava.jpeg' %}" alt="Avatar" class="img-fluid avatar">
+                    <img src="{{ request.user.profile.avatar_url }}" alt="Avatar" class="img-fluid avatar">
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Upload avatar</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file" name = "avatar" id="formFile">
                 </div>
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
+            
         </div>
     </div>
 </div>

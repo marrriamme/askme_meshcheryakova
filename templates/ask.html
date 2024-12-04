@@ -1,8 +1,8 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-Ask
-{% block title %}
 
+{% block title %}
+New Question
 {% endblock %}
 
 {% block content %}
@@ -10,30 +10,41 @@ Ask
     <div class="d-flex gap-3 align-items-center justify-content-center">
         <h2>New Question</h2>
     </div>
-    <form class="was-validated">
+    <form class="was-validated" method="post">
+        {% csrf_token %}
+        
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Add a title" maxlength="100" required>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" maxlength="100" required>
             <div class="invalid-feedback">
-                The title must be 50 characters or less.
+                {% for error in form.title.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
             </div>
         </div>
+        
         <div class="mb-3">
             <label for="text" class="form-label">Text</label>
-            <textarea class="form-control textarea-style" id="text" placeholder="Add a text" maxlength="500" required
-                rows="5" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
+            <textarea class="form-control textarea-style" id="text" name="text" placeholder="Add a text" maxlength="500" required rows="5" 
+                oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
             <div class="invalid-feedback">
-                The text must be 500 characters or less.
+                {% for error in form.text.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
             </div>
         </div>
+        
         <div class="mb-3">
             <label for="tags" class="form-label">Tags</label>
-            <input type="text" class="form-control " id="tags" maxlength="100"
+            <input type="text" class="form-control" name="tags" id="tags" maxlength="100"
                 placeholder="Add tags (up to 3, comma-separated)" required pattern="^([^,]+, ){0,2}[^,]+$">
             <div class="invalid-feedback">
-                You can add up to 3 tags, separated by commas.
+                {% for error in form.tags.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
             </div>
         </div>
+        
         <div class="button-container">
             <button type="submit" class="btn btn-primary">Ask</button>
         </div>

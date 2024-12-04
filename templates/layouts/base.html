@@ -23,7 +23,7 @@
             <img src="{% static 'images/askme.svg' %}" alt="aid_logo" width="150" height="40">
           </a>
         </div>
-
+        {% if request.user.is_authenticated %}
         <div class="d-flex align-items-center me-1 mb-1 mb-lg-0">
           <form class="me-1" role="search">
             <input type="search" class="form-control me-1" placeholder="Search..." aria-label="Search">
@@ -36,7 +36,7 @@
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <img src="{% static 'images/ava.jpeg' %}" alt="mdo" width="40" height="40" class="rounded-circle">
+            <img src="{{ request.user.profile.avatar_url }}" alt="mdo" width="40" height="40" class="rounded-circle">
           </a>
           <ul class="dropdown-menu dropdown-menu-end text-small">
             <li>
@@ -49,13 +49,25 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'login' %}">
+              <a class="dropdown-item" href="{% url 'logout' %}?next={{ request.path }}">
                 <img src="{% static 'images/Log out.svg' %}" alt="" style="height: 20px;">
                 Log out
               </a>
             </li>
           </ul>
         </div>
+        {% else %}
+        <div class="link-container">
+          <a href="{% url 'login' %}" class="log-link">
+              <img src="{% static 'images/Log in.svg' %}" alt="" style="height: 20px;">
+              Log in
+          </a>
+          <a href="{% url 'signup' %}" class="log-link">
+              <img src="{% static 'images/User.svg' %}" alt="" style="height: 20px;">
+              Register
+          </a>
+      </div>
+      {% endif %}
       </div>
     </div>
   </header>

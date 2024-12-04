@@ -51,24 +51,3 @@ function toggleHTMLElements(type, likeIcon, dislikeIcon, countElement) {
 }
 
 
-
-function setCorrectAnswer(answerId) {
-  var checkbox = document.getElementById('correct-' + answerId);
-  var url = '/set-correct-answer/' + answerId + '/';  
-
-
-  fetch(url, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-      },
-      body: JSON.stringify({ 'is_correct': checkbox.checked })
-  }).then(function(response) {
-      if (checkbox.checked) {
-          checkbox.parentNode.classList.add('text-success');  
-      } else {
-          checkbox.parentNode.classList.remove('text-success');  
-      }
-  });
-}

@@ -1,5 +1,6 @@
-{% extends 'layouts/base_two.html' %}
+{% extends 'layouts/base.html' %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 {% block title %}
 Log in
@@ -12,24 +13,9 @@ Log in
     </div>
     <div class="login-container">
         <div class="myform-container">
-            <form class="was-validated">
-                <div class="mb-3">
-                    <label for="login" class="form-label">Login</label>
-                    <input type="text" class="form-control" id="login" placeholder="Enter your login here."
-                        maxlength="20" required>
-                    <div class="invalid-feedback">
-                        Wrong login!
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="inputPassword4" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4"
-                        placeholder="Enter your password here." maxlength="20" required>
-                    <div class="invalid-feedback">
-                        Wrong password!
-                    </div>
-                </div>
+            <form action="" method="POST" class="was-validated">
+                {% csrf_token %}
+                {% bootstrap_form form %}
                 <div class="button-container">
                     <button type="submit" class="btn btn-outline-primary">Log in</button>
                 </div>
@@ -42,5 +28,6 @@ Log in
             </a>
         </div>
     </div>
+
 </div>
 {% endblock %}

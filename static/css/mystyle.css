@@ -419,3 +419,9 @@ button {
 .card-title a:hover {
   color: #5781a2 !important; 
 }
+
+.break-word {
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  max-width: 90%; 
+}
