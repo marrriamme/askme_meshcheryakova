@@ -45,7 +45,7 @@ def question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     answers_page = paginate(question.answers.all(), request) 
     form = AnswerForm()
-    per_page = 10;
+    per_page = 10
 
     if request.method == 'POST':
         form = AnswerForm(request.POST)
@@ -71,8 +71,9 @@ def ask(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
         if form.is_valid():
-            question = form.save()  
-            return redirect(request.GET.get('continue', reverse('question', kwargs={'question_id': question.pk})))     
+            question = form.save(author=request.user.profile) 
+            return redirect(request.GET.get('continue', reverse('question', kwargs={'question_id': question.pk})))
+    
     return render(request, 'ask.html', {"form": form, **get_common_context()})
 
 def signup(request):

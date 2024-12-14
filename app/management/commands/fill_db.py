@@ -64,7 +64,7 @@ class Command(BaseCommand):
             answers = []
             for question in questions:
                 # Случайное количество неправильных ответов (например, от 1 до 5)
-                num_incorrect_answers = random.randint(1, 5)
+                num_incorrect_answers = random.randint(1, 30)
                 
                 # Создаем неправильные ответы
                 incorrect_answers = [

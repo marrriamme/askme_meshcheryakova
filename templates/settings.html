@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 {% block title %}
 Settings
@@ -16,48 +17,14 @@ Settings
     </div>
     <div class="myform-container">
         <div class="signup-container">
-            <form class="was-validated"  method="post">
+            <form class="was-validated" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label">Login</label>
-                    <input type="text" class="form-control" aria-label="Username" value="{{ form.username.value }}"
-                        aria-describedby="basic-addon1" name = "username" maxlength="20">
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                        <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name = "email" value="{{ form.email.value }}" maxlength="20">
-                    <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
-                        <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">NickName</label>
-                    <input type="text" name="nickname" class="form-control {% if form.nickname.errors %}is-invalid{% endif %}" aria-label="NickName"
-                        value="{{ form.nickname.value }}"
-                        aria-describedby="basic-addon1" maxlength="20">
-                    <div class="invalid-feedback">
-                        {% for error in form.nickname.errors %}
-                        <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-                
+                {% bootstrap_form form %}
                 
                 <div class="avatar-container mb-3">
                     <img src="{{ request.user.profile.avatar_url }}" alt="Avatar" class="img-fluid avatar">
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Upload avatar</label>
-                    <input class="form-control" type="file" name = "avatar" id="formFile">
-                </div>
+             
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>

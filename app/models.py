@@ -6,6 +6,17 @@ from django.utils import timezone
 from datetime import timedelta
 from django.templatetags.static import static
 
+class Image(models.Model):
+    name = models.CharField(max_length=255)
+    file = models.ImageField(upload_to="images")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def file_url(self):
+        return self.file.url
 
 class QuestionManager(Manager):
     def new_questions(self):
@@ -48,7 +59,7 @@ class TagManager(Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='static/avatars/', null=True, blank=True)
+    avatar = models.OneToOneField(Image, on_delete=models.SET_NULL, blank=True, null=True)  
     nickname = models.CharField(max_length=100, blank=True, null=True)
     # objects = BestMemberManager()
 
@@ -57,9 +68,9 @@ class Profile(models.Model):
     
     @property
     def avatar_url(self):
-        if self.avatar:
-            return self.avatar.url
-        return static('avatars/ava.jpg') 
+        if self.avatar and self.avatar.file:
+            return self.avatar.file.url
+        return static('avatars/ava.jpg')
 
 class Question(models.Model):
     title = models.CharField(max_length=100)
@@ -80,12 +91,6 @@ class Question(models.Model):
     @property
     def tags_list(self):
         return self.tags.all()
-    
-    @property
-    def author_avatar_url(self):
-        if self.author.avatar:
-            return self.author.avatar.url
-        return static('avatars/ava.jpg')
 
     def __str__(self):
         return f"Question: {self.title} by {self.author.user.username}"
@@ -102,12 +107,6 @@ class Answer(models.Model):
     def likes_count(self):
         return self.answerlike_set.count()
     
-    @property
-    def author_avatar_url(self):
-        if self.author.avatar:
-            return self.author.avatar.url
-        return static('avatars/ava.jpg')
-
     def __str__(self):
         return f"Answer to '{self.question.title}' by {self.author.user.username}"
 
@@ -137,3 +136,4 @@ class AnswerLike(models.Model):
 
     def __str__(self):
         return f"Like by {self.user.user.username} for answer on '{self.answer.question.title}'"
+

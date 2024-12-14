@@ -1,11 +1,11 @@
 {% load static %}
-<div class="card w-100 answer" id="answer-{{ answer.id }}">
 
+<div class="card w-100 answer" id="answer-{{ answer.id }}">
     <div class="card-body">
         <div class="row">
             <div class="col-2">
                 <div class="avatar-container mb-2">
-                    <img src="{{ answer.author_avatar_url }}" alt="Avatar" class="img-fluid avatar">
+                    <img src="{{ answer.author.avatar_url }}" alt="Avatar" class="img-fluid avatar">
                 </div>
             </div>
             <div class="col-10">

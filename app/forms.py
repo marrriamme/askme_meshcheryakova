@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from .models import Profile, Question, Tag, Answer
+from .models import Profile, Question, Tag, Answer, Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -45,28 +47,34 @@ class SignupForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])  
         if commit:
             user.save()
-            profile, created = Profile.objects.get_or_create(user=user)  
+            profile, created = Profile.objects.get_or_create(user=user)
             profile.nickname = self.cleaned_data.get('nickname')
-            profile.avatar = self.cleaned_data.get('avatar')
+            avatar = self.cleaned_data.get('avatar')
+            if avatar:
+                image = Image.objects.create(name=avatar.name, file=avatar)  
+                profile.avatar = image  
+
             profile.save()
         return user
 
-    
 class SettingsForm(forms.ModelForm):
-    nickname = forms.CharField(required=False, label="NickName")  
-    avatar = forms.ImageField(required=False, label="Upload Avatar")  
-    email = forms.EmailField(required=False, label="Email Adress")
+    nickname = forms.CharField(required=False, label="NickName")
+    avatar = forms.ImageField(required=False, label="Upload Avatar")
+    email = forms.EmailField(required=False, label="Email Address")
 
     class Meta:
-        model = User  
+        model = User
         fields = ('username', 'email')
 
     def __init__(self, *args, **kwargs):
-        self.profile = kwargs.pop('profile', None)  
+        self.profile = kwargs.pop('profile', None)
         super().__init__(*args, **kwargs)
-        if self.profile:  
+        
+        if self.profile:
             self.fields['nickname'].initial = self.profile.nickname
-            self.fields['avatar'].initial = self.profile.avatar
+        
+            if self.profile.avatar:
+                self.fields['avatar'].initial = self.profile.avatar
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -77,13 +85,22 @@ class SettingsForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)  
         if commit:
-            user.save()
+            user.save()  
             if self.profile:
                 self.profile.nickname = self.cleaned_data.get('nickname', self.profile.nickname)
-                self.profile.avatar = self.cleaned_data.get('avatar', self.profile.avatar)
-                self.profile.save()
+                uploaded_avatar = self.cleaned_data.get('avatar')  
+                
+                if uploaded_avatar:  
+                    if isinstance(uploaded_avatar, InMemoryUploadedFile):
+                        new_image = Image.objects.create(name=uploaded_avatar.name, file=uploaded_avatar)
+                        self.profile.avatar = new_image  
+                    else:
+                        pass  
+                else:
+                    if self.profile.avatar:
+                        self.profile.avatar = self.profile.avatar 
+                self.profile.save()  
         return user
-
 
 class AskForm(forms.ModelForm):
     title = forms.CharField(required=True, label="Title")
@@ -108,13 +125,14 @@ class AskForm(forms.ModelForm):
             raise ValidationError("The title must be at least 5 characters long.")
         return title
 
-    def save(self, commit=True):
+    def save(self, commit=True, author=None):  
         question = super().save(commit=False)
+        if author:  
+            question.author = author
         if commit:
             question.save()
 
         tag_list = self.cleaned_data['tags']
-        
         for tag_name in tag_list:
             tag, created = Tag.objects.get_or_create(name=tag_name)
             question.tags.add(tag)  
@@ -134,3 +152,8 @@ class AnswerForm(forms.ModelForm):
             answer.save()
 
         return answer
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ['name', 'file']
