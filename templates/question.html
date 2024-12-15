@@ -31,13 +31,22 @@ Question: {{ question.title }}
                                     <img src="{% static 'images/Message square.svg' %}" alt="Answer" class="icon-style">
                                     {{ question.answers_count }}
                                 </a>
-                                <a href="#" class="card-link" onclick="toggleQuestionActive(event, 'like', '{{ question.id }}')">
+                                <a href="#" class="card-link" data-url="{% url 'like_question' question.id %}" onclick="likeQuestion('{{ question.id }}')">
                                     <img src="{% static 'images/Heart.svg' %}" alt="Like" class="icon-style" id="question-like-{{ question.id }}">
                                 </a>
-                                <span id="question-like-counter-{{ question.id }}" class="card-link">{{ question.likes_count  }}</span>
-                                <a href="#" class="card-link" onclick="toggleQuestionActive(event, 'dislike', '{{ question.id }}')">
+                                <span id="question-like-counter-{{ question.id }}" class="card-link">{{ question.rating }}</span>
+                                
+                                <a href="#" class="card-link" data-url="{% url 'dislike_question' question.id %}" onclick="dislikeQuestion('{{ question.id }}')">
                                     <img src="{% static 'images/heartbreak.svg' %}" alt="Dislike" class="icon-style" id="question-dislike-{{ question.id }}">
                                 </a>
+                                
+                                <!-- <a href="#" class="card-link" onclick="toggleQuestionActive(event, 'like', '{{ question.id }}')">
+                                    <img src="{% static 'images/Heart.svg' %}" alt="Like" class="icon-style" id="question-like-{{ question.id }}">
+                                </a>
+                                <span id="question-like-counter-{{ question.id }}" class="card-link">{{ question.rating }}</span>
+                                <a href="#" class="card-link" onclick="toggleQuestionActive(event, 'dislike', '{{ question.id }}')">
+                                    <img src="{% static 'images/heartbreak.svg' %}" alt="Dislike" class="icon-style" id="question-dislike-{{ question.id }}">
+                                </a> -->
                             </span>
                             
                             <div>

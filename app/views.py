@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .models import Question, Tag, Profile, Answer
+from .models import Question, Tag, Profile, Answer, QuestionLike, AnswerLike, LikeType
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_protect
 from app.forms import LoginForm, SignupForm, SettingsForm, AskForm, AnswerForm
+from django.http import JsonResponse
 
 
 
@@ -141,3 +143,105 @@ def paginate(objects_list, request, per_page=10):
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
     return page
+
+@require_POST
+@login_required
+def like_question(request, question_id):
+    profile = Profile.objects.get(user_id=request.user.id)
+    question = Question.objects.get(pk=question_id)
+
+    existing_like = QuestionLike.objects.filter(user=profile, question=question)
+    if existing_like.exists():
+        if existing_like.first().like_type == LikeType.LIKE:
+            existing_like.delete()  
+        else:
+            existing_like.update(like_type=LikeType.LIKE)  
+    else:
+        QuestionLike.objects.create(user=profile, question=question, like_type=LikeType.LIKE)
+
+    like_count = QuestionLike.objects.filter(question=question, like_type=LikeType.LIKE).count()
+    dislike_count = QuestionLike.objects.filter(question=question, like_type=LikeType.DISLIKE).count()
+
+    rating = like_count - dislike_count  
+
+    return JsonResponse({
+        'status': 'success',
+        'rating': rating
+    })
+
+@require_POST
+@login_required
+def dislike_question(request, question_id):
+    profile = Profile.objects.get(user_id=request.user.id)
+    question = Question.objects.get(pk=question_id)
+
+    existing_like = QuestionLike.objects.filter(user=profile, question=question)
+
+    if existing_like.exists():
+        if existing_like.first().like_type == LikeType.DISLIKE:
+            existing_like.delete()  
+        else:
+            existing_like.update(like_type=LikeType.DISLIKE)  
+    else:
+        QuestionLike.objects.create(user=profile, question=question, like_type=LikeType.DISLIKE)
+
+    like_count = QuestionLike.objects.filter(question=question, like_type=LikeType.LIKE).count()
+    dislike_count = QuestionLike.objects.filter(question=question, like_type=LikeType.DISLIKE).count()
+
+    rating = like_count - dislike_count  
+
+    return JsonResponse({
+        'status': 'success',
+        'rating': rating
+    })
+
+@require_POST
+@login_required
+def like_answer(request, answer_id):
+    profile = Profile.objects.get(user_id=request.user.id)
+    answer = Answer.objects.get(pk=answer_id)
+
+    existing_like = AnswerLike.objects.filter(user=profile, answer=answer)
+    if existing_like.exists():
+        if existing_like.first().like_type == LikeType.LIKE:
+            existing_like.delete()
+        else:
+            existing_like.update(like_type=LikeType.LIKE)  
+    else:
+        AnswerLike.objects.create(user=profile, answer=answer, like_type=LikeType.LIKE)
+
+    like_count = AnswerLike.objects.filter(answer=answer, like_type=LikeType.LIKE).count()
+    dislike_count = AnswerLike.objects.filter(answer=answer, like_type=LikeType.DISLIKE).count()
+
+    rating = like_count - dislike_count
+
+    return JsonResponse({
+        'status': 'success',
+        'rating': rating
+    })
+
+@require_POST
+@login_required
+def dislike_answer(request, answer_id):
+    profile = Profile.objects.get(user_id=request.user.id)
+    answer = Answer.objects.get(pk=answer_id)
+
+    existing_like = AnswerLike.objects.filter(user=profile, answer=answer)
+
+    if existing_like.exists():
+        if existing_like.first().like_type == LikeType.DISLIKE:
+            existing_like.delete()  
+        else:
+            existing_like.update(like_type=LikeType.DISLIKE)  
+    else:
+        AnswerLike.objects.create(user=profile, answer=answer, like_type=LikeType.DISLIKE)
+
+
+    like_count = AnswerLike.objects.filter(answer=answer, like_type=LikeType.LIKE).count()
+    dislike_count = AnswerLike.objects.filter(answer=answer, like_type=LikeType.DISLIKE).count()
+    rating = like_count - dislike_count
+
+    return JsonResponse({
+        'status': 'success',
+        'rating': rating
+    })

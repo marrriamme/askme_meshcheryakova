@@ -5,6 +5,8 @@ from django.db.models import Count, F
 from django.utils import timezone
 from datetime import timedelta
 from django.templatetags.static import static
+from django.db.models import Q, F, Count
+
 
 class Image(models.Model):
     name = models.CharField(max_length=255)
@@ -18,12 +20,18 @@ class Image(models.Model):
     def file_url(self):
         return self.file.url
 
-class QuestionManager(Manager):
+class QuestionManager(models.Manager):
     def new_questions(self):
         return self.order_by('-created_at')
 
     def best_questions(self):
-        return self.annotate(annotated_like_count=Count('questionlike')).order_by('-annotated_like_count')
+        return self.annotate(
+            annotated_like_count=Count('questionlike', filter=Q(questionlike__like_type='like')),
+            annotated_dislike_count=Count('questionlike', filter=Q(questionlike__like_type='dislike'))
+        ).annotate(
+            like_dislike_diff=F('annotated_like_count') - F('annotated_dislike_count')
+        ).order_by('-like_dislike_diff')
+
 
 class AnswerManager(Manager):
     def best_answers(self):
@@ -81,8 +89,10 @@ class Question(models.Model):
     objects = QuestionManager()
 
     @property
-    def likes_count(self):
-        return self.questionlike_set.count()
+    def rating(self):
+        likes = self.questionlike_set.filter(like_type='like').count()
+        dislikes = self.questionlike_set.filter(like_type='dislike').count()
+        return likes - dislikes
 
     @property
     def answers_count(self):
@@ -104,9 +114,11 @@ class Answer(models.Model):
     objects = AnswerManager()
 
     @property
-    def likes_count(self):
-        return self.answerlike_set.count()
-    
+    def rating(self):
+        likes = self.answerlike_set.filter(like_type='like').count()
+        dislikes = self.answerlike_set.filter(like_type='dislike').count()
+        return likes - dislikes
+
     def __str__(self):
         return f"Answer to '{self.question.title}' by {self.author.user.username}"
 
@@ -117,23 +129,32 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+class LikeType(models.TextChoices):
+    LIKE = 'like', 'Like'
+    DISLIKE = 'dislike', 'Dislike'
+
 class QuestionLike(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    like_type = models.CharField(
+        max_length=7, choices=LikeType.choices, default=LikeType.LIKE
+    )
 
     class Meta:
         unique_together = ('user', 'question')
 
     def __str__(self):
-        return f"Like by {self.user.user.username} for question '{self.question.title}'"
+        return f"{self.get_like_type_display()} by {self.user.user.username} for question '{self.question.title}'"
 
 class AnswerLike(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    like_type = models.CharField(
+        max_length=7, choices=LikeType.choices, default=LikeType.LIKE
+    )
 
     class Meta:
         unique_together = ('user', 'answer')
 
     def __str__(self):
-        return f"Like by {self.user.user.username} for answer on '{self.answer.question.title}'"
-
+        return f"{self.get_like_type_display()} by {self.user.user.username} for answer on '{self.answer.question.title}'"

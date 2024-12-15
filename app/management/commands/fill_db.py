@@ -1,9 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
-from django.utils.crypto import get_random_string
-import random
+from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike, LikeType
 from django.db import transaction
+import random
 
 class Command(BaseCommand):
     help = 'Fill database with test data'
@@ -63,10 +62,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Creating answers...'))
             answers = []
             for question in questions:
-                # Случайное количество неправильных ответов (например, от 1 до 5)
                 num_incorrect_answers = random.randint(1, 30)
-                
-                # Создаем неправильные ответы
                 incorrect_answers = [
                     Answer(
                         question=question,
@@ -76,51 +72,40 @@ class Command(BaseCommand):
                     )
                     for _ in range(num_incorrect_answers)
                 ]
-                
-                # Создаем один правильный ответ
                 correct_answer = Answer(
                     question=question,
                     text=f'This is the correct answer to question {question.id}',
                     author=random.choice(profiles),
                     is_correct=True
                 )
-                
-                # Вставляем правильный ответ случайным образом в список
                 incorrect_answers.insert(random.randint(0, num_incorrect_answers), correct_answer)
-                
-                # Добавляем все ответы в общий список
                 answers.extend(incorrect_answers)
 
             self.stdout.write(self.style.SUCCESS(f'Creating {len(answers)} answers'))
             Answer.objects.bulk_create(answers)
 
-
             # Создаем уникальные оценки пользователей к вопросам
             self.stdout.write(self.style.SUCCESS('Creating question likes...'))
-            question_likes = set()  # Используем set для уникальных значений
             for i in range(ratio * 200):
                 user = random.choice(profiles)
                 question = random.choice(questions)
-                question_likes.add((user.id, question.id))  # Добавляем уникальную пару (user_id, question_id)
+                like_type = random.choice([LikeType.LIKE, LikeType.DISLIKE])  # Случайный выбор типа
+                # Проверяем, существует ли уже лайк для данной пары (user, question)
+                if not QuestionLike.objects.filter(user=user, question=question).exists():
+                    QuestionLike.objects.create(user=user, question=question, like_type=like_type)
 
-            self.stdout.write(self.style.SUCCESS(f'Creating {len(question_likes)} unique question likes'))
-            # Преобразуем в объекты и создаем их
-            QuestionLike.objects.bulk_create(
-                [QuestionLike(user_id=user_id, question_id=question_id) for user_id, question_id in question_likes]
-            )
+            self.stdout.write(self.style.SUCCESS(f'Successfully created question likes.'))
 
             # Создаем уникальные оценки пользователей к ответам
             self.stdout.write(self.style.SUCCESS('Creating answer likes...'))
-            answer_likes = set()  # Используем set для уникальных значений
             for i in range(ratio * 200):
                 user = random.choice(profiles)
                 answer = random.choice(answers)
-                answer_likes.add((user.id, answer.id))  # Добавляем уникальную пару (user_id, answer_id)
+                like_type = random.choice([LikeType.LIKE, LikeType.DISLIKE])  # Случайный выбор типа
+                # Проверяем, существует ли уже лайк для данной пары (user, answer)
+                if not AnswerLike.objects.filter(user=user, answer=answer).exists():
+                    AnswerLike.objects.create(user=user, answer=answer, like_type=like_type)
 
-            self.stdout.write(self.style.SUCCESS(f'Creating {len(answer_likes)} unique answer likes'))
-            # Преобразуем в объекты и создаем их
-            AnswerLike.objects.bulk_create(
-                [AnswerLike(user_id=user_id, answer_id=answer_id) for user_id, answer_id in answer_likes]
-            )
+            self.stdout.write(self.style.SUCCESS(f'Successfully created answer likes.'))
 
         self.stdout.write(self.style.SUCCESS(f'Successfully filled the database with ratio {ratio}.'))
