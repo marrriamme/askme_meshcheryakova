@@ -101,6 +101,16 @@ class Question(models.Model):
     @property
     def tags_list(self):
         return self.tags.all()
+    
+    def is_liked_by_user(self, user):
+        if user.is_authenticated:
+            return self.questionlike_set.filter(user=user.profile, like_type=LikeType.LIKE).exists()
+        return False
+
+    def is_disliked_by_user(self, user):
+        if user.is_authenticated:
+            return self.questionlike_set.filter(user=user.profile, like_type=LikeType.DISLIKE).exists()
+        return False
 
     def __str__(self):
         return f"Question: {self.title} by {self.author.user.username}"
@@ -118,6 +128,16 @@ class Answer(models.Model):
         likes = self.answerlike_set.filter(like_type='like').count()
         dislikes = self.answerlike_set.filter(like_type='dislike').count()
         return likes - dislikes
+    
+    def is_liked_by_user(self, user):
+        if user.is_authenticated:
+            return self.answerlike_set.filter(user=user.profile, like_type=LikeType.LIKE).exists()
+        return False
+
+    def is_disliked_by_user(self, user):
+        if user.is_authenticated:
+            return self.answerlike_set.filter(user=user.profile, like_type=LikeType.DISLIKE).exists()
+        return False
 
     def __str__(self):
         return f"Answer to '{self.question.title}' by {self.author.user.username}"

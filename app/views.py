@@ -16,6 +16,11 @@ from django.http import JsonResponse
 def index(request):
     questions = Question.objects.new_questions()
     page = paginate(questions, request)
+
+    for question in page.object_list:
+        question.is_liked = question.is_liked_by_user(request.user)
+        question.is_disliked = question.is_disliked_by_user(request.user)
+
     return render(request, 'index.html', {
         'questions': page.object_list,
         'page': page,
@@ -25,6 +30,11 @@ def index(request):
 def hot(request):
     questions = Question.objects.best_questions() 
     page = paginate(questions, request) 
+
+    for question in page.object_list:
+        question.is_liked = question.is_liked_by_user(request.user)
+        question.is_disliked = question.is_disliked_by_user(request.user)
+
     return render(request, 'hot.html', {
         'questions': page.object_list,
         'page': page,
@@ -35,6 +45,11 @@ def tag(request, tag_name):
     tag_instance = get_object_or_404(Tag, name=tag_name)
     questions = tag_instance.questions.all()
     page = paginate(questions, request)
+
+    for question in page.object_list:
+        question.is_liked = question.is_liked_by_user(request.user)
+        question.is_disliked = question.is_disliked_by_user(request.user)
+
     return render(request, 'bender.html', {
         'tag_name': tag_name,
         'questions': page.object_list,
@@ -48,6 +63,13 @@ def question(request, question_id):
     answers_page = paginate(question.answers.all(), request) 
     form = AnswerForm()
     per_page = 10
+
+    is_liked_question = question.is_liked_by_user(request.user)
+    is_disliked_question = question.is_disliked_by_user(request.user)
+
+    for answer in answers_page:
+        answer.is_liked = answer.is_liked_by_user(request.user)
+        answer.is_disliked = answer.is_disliked_by_user(request.user)
 
     if request.method == 'POST':
         form = AnswerForm(request.POST)
@@ -63,6 +85,8 @@ def question(request, question_id):
         'answers': answers_page.object_list,
         'page': answers_page,
         'form': form,
+        'is_liked_question': is_liked_question,
+        'is_disliked_question': is_disliked_question,
         **get_common_context(),
     })
 
@@ -143,6 +167,7 @@ def paginate(objects_list, request, per_page=10):
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
     return page
+
 
 @require_POST
 @login_required
@@ -245,3 +270,18 @@ def dislike_answer(request, answer_id):
         'status': 'success',
         'rating': rating
     })
+@require_POST
+@login_required
+def set_correct_answer(request, question_id, answer_id):
+    question = get_object_or_404(Question, id=question_id)
+
+    if question.author != request.user.profile:
+        return JsonResponse({'status': 'error', 'message': 'Only the author can set the correct answer.'}, status=403)
+
+    question.answers.filter(is_correct=True).update(is_correct=False)
+
+    answer = get_object_or_404(Answer, id=answer_id, question=question)
+    answer.is_correct = True
+    answer.save()
+
+    return JsonResponse({'status': 'success', 'answer_id': answer.id})

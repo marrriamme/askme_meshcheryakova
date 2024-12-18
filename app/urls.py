@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:answer_id>/like_answer', views.like_answer, name = 'like_answer'),
     path('<int:question_id>/dislike_question', views.dislike_question, name = 'dislike_question'),
     path('<int:answer_id>/dislike_answer', views.dislike_answer, name = 'dislike_answer'),
+    path('<int:question_id>/<int:answer_id>/set_correct_answer', views.set_correct_answer, name='set_correct_answer'),
 ]

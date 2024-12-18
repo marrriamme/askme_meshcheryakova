@@ -1,66 +1,19 @@
-// function toggleQuestionActive(event, type, cardID) {
-//   event.preventDefault();
-
-//   const likeIcon = document.getElementById(`question-like-${cardID}`);
-//   const dislikeIcon = document.getElementById(`question-dislike-${cardID}`);
-//   const countElement = document.getElementById(`question-like-counter-${cardID}`);
-
-//   toggleHTMLElements(type, likeIcon, dislikeIcon, countElement)
-// }
-
-// function toggleAnswerActive(event, type, cardID) {
-//   event.preventDefault();
-
-//   const likeIcon = document.getElementById(`answer-like-${cardID}`);
-//   const dislikeIcon = document.getElementById(`answer-dislike-${cardID}`);
-//   const countElement = document.getElementById(`answer-like-counter-${cardID}`);
-
-//   toggleHTMLElements(type, likeIcon, dislikeIcon, countElement)
-// }
-
-// function toggleHTMLElements(type, likeIcon, dislikeIcon, countElement) {
-//   let count = parseInt(countElement.innerText);
-
-//   if (type === 'like') {
-//     if (likeIcon.classList.contains('active')) {
-//       likeIcon.classList.remove('active');
-//       countElement.innerText = count - 1;
-//     } else {
-//       if (dislikeIcon.classList.contains('active')) {
-//         dislikeIcon.classList.remove('active');
-//         countElement.innerText = count + 2;
-//       } else {
-//         countElement.innerText = count + 1;
-//       }
-//       likeIcon.classList.add('active');
-//     }
-//   } else if (type === 'dislike') {
-//     if (dislikeIcon.classList.contains('active')) {
-//       dislikeIcon.classList.remove('active');
-//       countElement.innerText = count + 1;
-//     } else {
-//       if (likeIcon.classList.contains('active')) {
-//         likeIcon.classList.remove('active');
-//         countElement.innerText = count - 2;
-//       } else {
-//         countElement.innerText = count - 1;
-//       }
-//       dislikeIcon.classList.add('active');
-//     }
-//   }
-// }
-
-
-function likeQuestion(questionId) {
+function likeQuestion(questionId, event) {
+    event.preventDefault();
     const url = document.querySelector(`#question-like-${questionId}`).closest('a').getAttribute('data-url');
-    
+    const csrfToken = getCSRFToken();
+
+    console.log("URL:", url); 
+    console.log("CSRF Token:", csrfToken); 
+
     fetch(url, {
         method: "POST",
         headers: {
-            'X-CSRFToken': getCSRFToken() 
+            'X-CSRFToken': csrfToken
         }
     })
     .then(response => {
+        console.log("Response Status:", response.status); 
         if (response.status === 403) {
             console.error("CSRF token error.");
             return;
@@ -68,22 +21,26 @@ function likeQuestion(questionId) {
         return response.json();
     })
     .then(data => {
+        console.log("Response Data:", data); 
         if (data) {
             document.getElementById('question-like-counter-' + questionId).textContent = data.rating;
+            toggleQuestionActive('like', questionId); 
         }
     })
     .catch(error => {
-        console.error("Error:", error);
+        console.error("Error:", error); 
     });
 }
 
-function dislikeQuestion(questionId) {
+
+function dislikeQuestion(questionId, event) {
+    event.preventDefault(); 
     const url = document.querySelector(`#question-dislike-${questionId}`).closest('a').getAttribute('data-url');
     
     fetch(url, {
         method: "POST",
         headers: {
-            'X-CSRFToken': getCSRFToken() 
+            'X-CSRFToken': getCSRFToken()
         }
     })
     .then(response => {
@@ -96,6 +53,7 @@ function dislikeQuestion(questionId) {
     .then(data => {
         if (data) {
             document.getElementById('question-like-counter-' + questionId).textContent = data.rating;
+            toggleQuestionActive('dislike', questionId); 
         }
     })
     .catch(error => {
@@ -103,23 +61,44 @@ function dislikeQuestion(questionId) {
     });
 }
 
-// Функция для получения CSRF-токена
-function getCSRFToken() {
-    const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
-    return csrfTokenElement ? csrfTokenElement.value : '';
+function toggleQuestionActive(type, questionId) {
+    const likeIcon = document.getElementById(`question-like-${questionId}`);
+    const dislikeIcon = document.getElementById(`question-dislike-${questionId}`);
+    
+    if (type === 'like') {
+        if (likeIcon.classList.contains('active')) {
+            likeIcon.classList.remove('active');
+        } else {
+            likeIcon.classList.add('active');
+            dislikeIcon.classList.remove('active'); 
+        }
+    } else if (type === 'dislike') {
+        if (dislikeIcon.classList.contains('active')) {
+            dislikeIcon.classList.remove('active');
+        } else {
+            dislikeIcon.classList.add('active');
+            likeIcon.classList.remove('active'); 
+        }
+    }
 }
 
 
-function likeAnswer(answerId) {
+function likeAnswer(answerId, event) {
+    event.preventDefault();
     const url = document.querySelector(`#answer-like-${answerId}`).closest('a').getAttribute('data-url');
-    
+    const csrfToken = getCSRFToken();
+
+    console.log("URL:", url); 
+    console.log("CSRF Token:", csrfToken); 
+
     fetch(url, {
         method: "POST",
         headers: {
-            'X-CSRFToken': getCSRFToken() 
+            'X-CSRFToken': csrfToken
         }
     })
     .then(response => {
+        console.log("Response Status:", response.status); 
         if (response.status === 403) {
             console.error("CSRF token error.");
             return;
@@ -127,8 +106,44 @@ function likeAnswer(answerId) {
         return response.json();
     })
     .then(data => {
+        console.log("Response Data:", data); 
         if (data) {
             document.getElementById('answer-like-counter-' + answerId).textContent = data.rating;
+            toggleAnswerActive('like', answerId); 
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error); 
+    });
+}
+
+function dislikeAnswer(answerId, event) {
+    event.preventDefault(); 
+    const url = document.querySelector(`#answer-dislike-${answerId}`).closest('a').getAttribute('data-url');
+    const csrfToken = getCSRFToken();
+
+    console.log("URL:", url); 
+    console.log("CSRF Token:", csrfToken); 
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'X-CSRFToken': csrfToken
+        }
+    })
+    .then(response => {
+        console.log("Response Status:", response.status); 
+        if (response.status === 403) {
+            console.error("CSRF token error.");
+            return;
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Response Data:", data); 
+        if (data) {
+            document.getElementById('answer-like-counter-' + answerId).textContent = data.rating;
+            toggleAnswerActive('dislike', answerId); 
         }
     })
     .catch(error => {
@@ -136,16 +151,44 @@ function likeAnswer(answerId) {
     });
 }
 
-function dislikeAnswer(answerId) {
-    const url = document.querySelector(`#answer-dislike-${answerId}`).closest('a').getAttribute('data-url');
+function toggleAnswerActive(type, answerId) {
+    const likeIcon = document.getElementById(`answer-like-${answerId}`);
+    const dislikeIcon = document.getElementById(`answer-dislike-${answerId}`);
     
+    if (type === 'like') {
+        if (likeIcon.classList.contains('active')) {
+            likeIcon.classList.remove('active');
+        } else {
+            likeIcon.classList.add('active');
+            dislikeIcon.classList.remove('active'); 
+        }
+    } else if (type === 'dislike') {
+        if (dislikeIcon.classList.contains('active')) {
+            dislikeIcon.classList.remove('active');
+        } else {
+            dislikeIcon.classList.add('active');
+            likeIcon.classList.remove('active'); 
+        }
+    }
+}
+
+function setCorrectAnswer(questionId, answerId, event) {
+    event.preventDefault(); 
+
+    const url = document.querySelector(`#correct-${answerId}`).closest('a').getAttribute('data-url');
+    const csrfToken = getCSRFToken();
+
+    console.log("URL:", url); 
+    console.log("CSRF Token:", csrfToken); 
+
     fetch(url, {
         method: "POST",
         headers: {
-            'X-CSRFToken': getCSRFToken() 
+            'X-CSRFToken': csrfToken
         }
     })
     .then(response => {
+        console.log("Response Status:", response.status); 
         if (response.status === 403) {
             console.error("CSRF token error.");
             return;
@@ -153,16 +196,31 @@ function dislikeAnswer(answerId) {
         return response.json();
     })
     .then(data => {
+        console.log("Response Data:", data); 
         if (data) {
-            document.getElementById('answer-like-counter-' + answerId).textContent = data.rating;
+            toggleCorrectAnswer(questionId, answerId); 
         }
     })
     .catch(error => {
-        console.error("Error:", error);
+        console.error("Error:", error); 
     });
+}
+
+function toggleCorrectAnswer(questionId, answerId) {
+    const previousCorrect = document.querySelector('.form-check-input:checked');
+    const newCorrect = document.getElementById(`correct-${answerId}`);
+
+    if (previousCorrect) {
+        previousCorrect.checked = false;
+    }
+
+    if (newCorrect) {
+        newCorrect.checked = true;
+    }
 }
 
 function getCSRFToken() {
     const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
     return csrfTokenElement ? csrfTokenElement.value : '';
 }
+

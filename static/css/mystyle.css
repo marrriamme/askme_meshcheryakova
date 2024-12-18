@@ -425,3 +425,7 @@ button {
   overflow-wrap: break-word; 
   max-width: 90%; 
 }
+
+a {
+  color: #313538 !important;
+}
